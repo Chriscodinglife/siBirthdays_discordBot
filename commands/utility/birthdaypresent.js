@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
 require('dotenv').config();
 
 module.exports = {
@@ -14,19 +14,19 @@ module.exports = {
       const happyBirthdayGif = 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTMwZzQycG5henQxbXpuZ2JmZDg3bTFvZWh2MTdzbTc3Z2c3OHRweSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LzwcNOrbA3aYvXK6r7/giphy.gif';
       const giftCardImage = 'https://assets-prd.ignimgs.com/2023/07/04/amazongcprimeday-1688429706725.jpg';
 
-      // Replace 'YOUR_GIFT_CODE' with the actual gift code
-      const giftCode = process.env.GIFT_CODE;
+        // Replace 'YOUR_GIFT_CODE' with the actual gift code
+        const giftCode = process.env.GIFT_CODE;
 
-      const row = new MessageActionRow().addComponents(
-        new MessageButton()
-          .setCustomId('redeemButton')
-          .setLabel('Redeem My Gift Bitchessss')
-          .setStyle('PRIMARY')
-          .setURL('https://www.amazon.com/gc/redeem')
-      );
+        const redeemButton = new ButtonBuilder()
+            .setLabel('Redeem My Gift Bitchessss')
+            .setStyle(ButtonStyle.Link)
+            .setURL('https://www.amazon.com/gc/redeem');
+            
+        const buttonRow = new ActionRowBuilder()
+            .addComponents(redeemButton);
 
       await interaction.reply({
-        content: `Happy Birthday ${interaction.user.username}! 🎉 Here's your birthday gift:`,
+        content: `Happy (Belated) Birthday ${interaction.user.username}! 🎉 Here's your birthday gift:`,
         embeds: [
           {
             image: { url: happyBirthdayGif },
@@ -37,7 +37,7 @@ module.exports = {
             description: `Use the following code to redeem your gift online:\n\`${giftCode}\``,
           }
         ],
-        components: [row],
+        components: [buttonRow],
       });
     } else {
       await interaction.reply('Wo buddy. No Birthday Present For you.');
