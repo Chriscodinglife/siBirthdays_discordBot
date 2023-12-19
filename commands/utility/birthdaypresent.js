@@ -1,4 +1,6 @@
 const { SlashCommandBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
+const envFilePath = './secrets/.env'
+require('dotenv').config({ path: envFilePath });
 
 module.exports = {
   data: new SlashCommandBuilder()
